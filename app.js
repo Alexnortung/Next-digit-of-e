@@ -43,25 +43,25 @@ function postToFacebook(PageUA){
 
 				var thisDigit = buffer.substring(rows[0].progress,rows[0].progress+1);
 
-					db.all("SELECT * FROM special", function(err1, specialRows){
-						if(err1){
-							throw err1;
+				db.all("SELECT * FROM special", function(err1, specialRows){
+					if(err1){
+						throw err1;
+					}
+
+					//console.log(specialRows);
+
+					for (var i = specialRows.length - 1; i >= 0; i--) {
+						if(specialRows[i].number == parseInt(rows[0].progress)+1){
+
+							console.log("special url found: " + specialRows[i].url);
+
+							specialUrl = specialRows[i].url;
+							specialIsSet = true;
+							break;
 						}
+					}
 
-						//console.log(specialRows);
-
-						for (var i = specialRows.length - 1; i >= 0; i--) {
-							if(specialRows[i].number == parseInt(rows[0].progress)+1){
-
-								console.log("special url found: " + specialRows[i].url);
-
-								specialUrl = specialRows[i].url;
-								specialIsSet = true;
-								break;
-							}
-						}
-
-					});
+				});
 
 				//opdater databasen
 				db.run("UPDATE progress SET progress= "+ 
@@ -103,23 +103,26 @@ function postToFacebook(PageUA){
 				      
 				  	};
 
-				  	var post_req = http.request(post_options, function(res) {
-				      res.setEncoding('utf8');
-				      res.on('data', function (chunk) {
-				          console.log('Response: ' + chunk);
-				      });
-				  });
+				  	try{
 
-				  // post the data
-				  
-				  post_req.end();
+					  	var post_req = http.request(post_options, function(res) {
+							res.setEncoding('utf8');
+							res.on('data', function (chunk) {
+								console.log('Response: ' + chunk);
+							});
+					  	});
 
+						// post the data
+					  
+						post_req.end();
 
+					} catch(postErr){
+						console.log(postErr);
+					}
 
-
-			} else{
-				console.log(thisDigit);
-			}
+				} else{
+					console.log(thisDigit);
+				}
 
 			});
 	});
