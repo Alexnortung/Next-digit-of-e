@@ -1,0 +1,23 @@
+{
+  "name": "the-next-digit-of-angery-every-hour",
+  "version": "1.0.0",
+  "description": "poster det næste digit af e hver time",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "./git"
+  },
+  "keywords": [
+    "e"
+  ],
+  "author": "Alexander Nortung",
+  "license": "ISC",
+  "dependencies": {
+    "node-schedule": "^1.2.0",
+    "read-file": "^0.2.0",
+    "sqlite3": "^3.1.8"
+  }
+}
